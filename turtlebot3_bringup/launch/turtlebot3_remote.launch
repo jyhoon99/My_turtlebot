@@ -1,41 +1,22 @@
 <launch>
   <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi, TNBD]"/>
-  <!-- <arg name="multi_robot_name" default=""/>
+  <arg name="multi_robot_name" default=""/>
 
-  <include file="$(find turtlebot3_bringup)/launch/includes/description.launch.xml">
-    <arg name="model" value="$(arg model)" />
-  </include>
-
+  <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find tnbd_proto5)/urdf/tnbd_proto5.urdf'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+    <node
+     name="joint_state_publisher_gui"
+     pkg="joint_state_publisher_gui"
+     type="joint_state_publisher_gui" />
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-    <param name="publish_frequency" type="double" value="50.0" />
-    <param name="tf_prefix" value="$(arg multi_robot_name)"/>
-  </node> -->
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="$(arg multi_robot_name)" />
+  </node>
 
-  <group if = "$(eval TURTLEBOT3_MODEL == 'TNBD')">
-    <include file="$(find tnbd_proto4)/urdf/tnbd_proto4.urdf">
-      <arg name="model" value="$(arg model)" />
-    </include>
-  </group>  
-    <!-- </group>
-     <arg
-        name="model" />
-    <param
-      name="robot_description"
-      textfile="$(find tnbd-test)/urdf/tnbd-test.urdf" />
-    <node
-      name="joint_state_publisher_gui"
-      pkg="joint_state_publisher_gui"
-      type="joint_state_publisher_gui" />
-    <node
-      name="robot_state_publisher"
-      pkg="robot_state_publisher"
-      type="robot_state_publisher" />
-    <node
-      name="rviz"
+  <node
+      name="rviz1"
       pkg="rviz"
       type="rviz"
-      args="-d $(find tnbd-test)/urdf.rviz" />
-  </group> -->
-
-
+      args="-d $(find tnbd_proto5)/urdf/robot.rviz" />
+         
 </launch>

@@ -15,7 +15,11 @@
     <include file="$(find turtlebot3_bringup)/launch/turtlebot3_rpicamera.launch"/>
   </group> -->
 
-<group if = "$(eval model == 'TNBD')">
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_lidar.launch">
+    
+  </include>
+
+<!-- <group if = "$(eval model == 'TNBD')">
     <include file="$(find urg_node)/launch/urg_lidar.launch"/>
-  </group>
+  </group> -->
 </launch>
